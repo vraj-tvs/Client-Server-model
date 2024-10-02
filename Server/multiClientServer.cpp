@@ -121,7 +121,11 @@ int main() {
                 if (bytesReceived <= 0) {
                     // Connection closed or error occurred
                     if (strcmp(buffer, "exit") == 0) {
-                        cout << "\nClient disconnected: Socket FD = " << clientSocket << "\n\n";
+                        if(closesocket(clientSocket) == SOCKET_ERROR)
+                            cout<<"Error closing connection with the client - Socket FD = "<<clientSocket<<" : "<<WSAGetLastError()<<endl;
+                        else{
+                            cout << "\nClient disconnected: Socket FD = " << clientSocket << "\n\n";
+                        }
                     } else {
                         cout << "recv() failed: " << WSAGetLastError() << "\n";
                     }
@@ -142,15 +146,19 @@ int main() {
                 ++it;
             }
         }
+        // if no active connection, then terminate the server socket
+        if(clientSockets.empty()) break;
     }
     
-    cout << "\n==== 7. Close the Socket ====\n";
-
-    // Cleanup
-    for (SOCKET clientSocket : clientSockets) {
-        closesocket(clientSocket);
+    cout << "==== 7. Close the Socket ====\n";
+    // CLosing the server socket
+    if(closesocket(serverSocket) == SOCKET_ERROR){
+        cout<<"Error closing socket: "<<WSAGetLastError()<<endl;
     }
-    closesocket(serverSocket);
+    else{
+        cout<<"Server: close() is OK!"<<endl;
+        cout<<"\n=== Thank You! Visit again. ===\n\n";
+    }
     WSACleanup();
     return 0;
 }
