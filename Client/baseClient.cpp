@@ -76,7 +76,7 @@ int main() {
         bytesReceived = recv(clientSocket, recvbuf, recvbuflen, 0);
         if(bytesReceived > 0) {
             recvbuf[bytesReceived] = '\0'; // Null-terminate received data
-            // cout << "Server: " << recvbuf << endl;
+            cout << "Server: " << recvbuf << endl;
 
             if(strcmp(recvbuf, "exit") == 0) {
                 cout << "\nServer has exited the chat." << endl;
