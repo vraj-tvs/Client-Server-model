@@ -14,7 +14,7 @@ This project implements a basic client-server model in C++ using TCP sockets. It
 
 **Server/baseServer.cpp**: Implements a server that communicates with `baseClient.cpp` in two-way communication.
 
-**Server/multiClientServer.cpp**: Implements a server that handles multiple client connections using `select()` to allow simultaneous communication. The server can receive messages from multiple clients, but clients do not interact with each other.
+**Server/multiClientServer.cpp**: Implements a server that handles multiple client connections.
 
 ## Communication Setups
 1. **Two-Way Communication (Single Client only)**:
