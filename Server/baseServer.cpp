@@ -91,6 +91,7 @@ int main() {
                 break;
             }
 
+            sendbuf="";
             cout << "Server: ";
             getline(cin, sendbuf);
             send(acceptSocket, sendbuf.c_str(), sendbuf.length(), 0);
